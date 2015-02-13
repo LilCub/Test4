@@ -23,15 +23,17 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 $app->match('/', function(Request $request) use($app) {
   $app['monolog']->addDebug('logging output.');
 
+  ob_start();
   include('index.inc.php');
-  //return new Response($res, 200);
+  return new Response(ob_get_clean(), 200);
 });
 
 $app->match('/rates', function(Request $request) use($app) {
   $app['monolog']->addDebug('logging output.');
 
+  ob_start();
   include('rates.inc.php');
-  //return new Response($res, 200);
+  return new Response(ob_get_clean(), 200);
 });
 
 $app->run();
